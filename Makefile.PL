@@ -20,9 +20,9 @@ license 'perl';
 author 'Gabor Szabo';
 all_from 'lib/Code/Explain.pm';
 
-requires 'perl'                  => '5.008008';
+requires 'perl'                    => '5.008008';
 
-requires 'PPI';
+requires 'PPI'                     => '1.213';
 
 test_requires 'Test::More'         => '0.88';
 test_requires 'Test::NoWarnings'   => '0.084';

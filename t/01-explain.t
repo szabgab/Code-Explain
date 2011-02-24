@@ -18,7 +18,7 @@ my %todo = (
 	'$x = /regex/'  => '$x = $_ =~ /regex/',
 );
 
-plan tests => scalar(keys %cases) + scalar(keys %todo);
+plan tests => scalar(keys %cases) + scalar(keys %todo) + 1;
 
 require Code::Explain;
 
@@ -34,4 +34,15 @@ foreach my $str (sort keys %todo) {
 	}
 }
 
+{
+	my @dump = $ce->ppi_dump('$_');
+	#diag explain @dump;
+	my @expected = (
+		q(PPI::Document),
+		q(  PPI::Statement),
+		qq(    PPI::Token::Magic  \t'\$_'),   # why is that tab there?
+	);
+	is_deeply \@dump, \@expected, 'dump $_';
+	#diag $dump[2] =~ s/\t/TAB/g;
+}
 

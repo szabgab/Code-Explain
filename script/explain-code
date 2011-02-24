@@ -8,14 +8,19 @@ use Getopt::Long qw(GetOptions);
 usage() if not @ARGV;
 my %opt;
 GetOptions(\%opt,
-	'help'
+	'help',
+	'ppidump',
 ) or usage();
 usage() if $opt{help};
 usage() if @ARGV != 1;
 
 my $str = shift;
 my $ce = Code::Explain->new;
-print $ce->explain($str), "\n";
+if ($opt{ppidump}) {
+	print map {"$_\n"} $ce->ppi_dump($str);
+} else {
+	print $ce->explain($str), "\n";
+}
 exit;
 
 sub usage {
@@ -23,6 +28,8 @@ sub usage {
 This is version $Code::Explain::VERSION of Code::Explain
 
 Usage: $0  'code snippet'
+
+         --ppidump   Run PPI on the code and print the dump
 
          --help      gives this help
 

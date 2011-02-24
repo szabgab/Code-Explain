@@ -35,6 +35,15 @@ sub explain {
 	return "Not found";
 }
 
+sub ppi_dump {
+	my ($self, $code) = @_;
+	require PPI::Document;
+	require PPI::Dumper;
+	my $Document = PPI::Document->new(\$code);
+	my $Dumper = PPI::Dumper->new( $Document );
+	return $Dumper->list;
+}
+
 
 
 
