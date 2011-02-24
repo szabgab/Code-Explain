@@ -1,0 +1,32 @@
+use 5.008008;
+use strict;
+use inc::Module::Install 0.94;
+
+# Workaround for the fact that Module::Install loads the modules
+# into memory and when Test::NoWarnings is loaded it will hide
+# the warnings generated from that point.
+eval {
+	require Test::NoWarnings;
+	$SIG{__WARN__} = 'DEFAULT';
+};
+
+#####################################################################
+# Normal Boring Commands
+
+# NOTE: Core modules that aren't dual-life should always have a version of 0
+
+name 'Code-Explain';
+license 'perl';
+author 'Gabor Szabo';
+all_from 'lib/Code/Explain.pm';
+
+requires 'perl'                  => '5.008008';
+
+requires 'PPI';
+
+test_requires 'Test::More'         => '0.88';
+test_requires 'Test::NoWarnings'   => '0.084';
+
+no_index 'directory' => qw{ t xt eg share inc privinc };
+
+WriteAll;
