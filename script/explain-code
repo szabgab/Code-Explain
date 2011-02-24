@@ -1,0 +1,32 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Code::Explain;
+use Getopt::Long qw(GetOptions);
+
+usage() if not @ARGV;
+my %opt;
+GetOptions(\%opt,
+	'help'
+) or usage();
+usage() if $opt{help};
+usage() if @ARGV != 1;
+
+my $str = shift;
+my $ce = Code::Explain->new;
+print $ce->explain($str), "\n";
+exit;
+
+sub usage {
+	print <<"END_USAGE";
+This is version $Code::Explain::VERSION of Code::Explain
+
+Usage: $0  'code snippet'
+
+         --help      gives this help
+
+END_USAGE
+	exit;
+}
+
