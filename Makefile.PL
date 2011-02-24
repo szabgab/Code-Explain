@@ -29,4 +29,6 @@ test_requires 'Test::NoWarnings'   => '0.084';
 
 no_index 'directory' => qw{ t xt eg share inc privinc };
 
+install_script 'script/explain-code';
+
 WriteAll;
