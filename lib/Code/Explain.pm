@@ -68,6 +68,13 @@ sub explain {
 		return "\$$1 is a reference to a scalar value. This expression dereferences it. See perlref";
 	}
 
+	# $x ||= $y
+	if ($code  =~ m{^\$(\w+) \s*  \|\|= \s* \$\w+$}x) {
+		my $lhs = $1;
+		return "Assigning default value to \$$lhs. It has the disadvantage of not allowing \$$lhs=0. Startin from 5.10 you can use //= instead of ||=";
+	}
+
+
 	#require PPI::Document;
 	#my $Document = PPI::Document->new($code);
 

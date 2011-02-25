@@ -20,10 +20,10 @@ my %cases = (
 	'!!'         => 'Creating boolean context by negating the value on the right hand side twice',
 	q('' .)      => 'Forcing string context',
 	q(0 +)       => 'Forcing numeric context',
+	'$z ||= $y'  => 'Assigning default value to $z. It has the disadvantage of not allowing $z=0. Startin from 5.10 you can use //= instead of ||=',
 );
 
 my %todo = (
-	'$x ||= $y'     => 'Assigning default value',
 	'$phone{$name}' => 'The element $name of the hash %phone',
 	'$x = /regex/'  => '$x = $_ =~ /regex/',
 	q("print 'hey';") => '',
