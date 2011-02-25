@@ -13,6 +13,7 @@ sub explain {
 		'@_'    => 'Default array',
 		'given' => 'keyword in perl 5.10',
 		'say'   => 'keyword in perl 5.10',
+		'!!'    => 'Creating boolean context by negating the value on the right hand side twice',
 	);
 
 	if ($exact{$code}) {
@@ -25,6 +26,16 @@ sub explain {
 		if ($exact{$sub}) {
 			return $exact{$sub};
 		}
+	}
+
+	# '' .
+	if ($code =~ m{^'' \s* \.$}x) {
+		return 'Forcing string context';
+	}
+
+	# 0 +
+	if ($code =~ m{^0 \s* \+$}x) {
+		return 'Forcing numeric context';
 	}
 
 	my $NUMBER = qr{\d+(?:\.\d+)?};

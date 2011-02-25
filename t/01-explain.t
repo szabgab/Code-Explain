@@ -17,6 +17,7 @@ my %cases = (
 	'1+1'        => 'Numerical operation',
 	'1   +1'     => 'Numerical operation',
 	'1   - 1'    => 'Numerical operation',
+	'!!'         => 'Creating boolean context by negating the value on the right hand side twice',
 );
 
 my %todo = (
@@ -26,6 +27,8 @@ my %todo = (
 	q("print 'hey';") => '',
 	q('string')     => '',
 	'split()'       => '',
+	q('' .)         => 'Forcing string context',
+	q(0 +)          => 'Forcing numeric context',
 );
 
 plan tests => scalar(keys %cases) + scalar(keys %todo) + 1;
