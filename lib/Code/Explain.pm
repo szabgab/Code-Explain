@@ -108,7 +108,63 @@ sub ppi_dump {
 	return $Dumper->list;
 }
 
+=head1 NAME
 
+Code::Explain - Try to explain what $ @ % & * and the rest mean
+
+=head1 SYNOPSIS
+
+
+   my $ce = Code::Explain->new;
+   $str = '$x ||= $y';
+   print $ce->explain($str), "\n";
+
+or
+
+   @ppi_dump = $ce->ppi_dump($str);
+
+=head1 COMMAND LINE
+
+The module comes with a command line tool called
+
+   explain-code
+
+You give a perl expression to it and it will give an explanation
+what that might be.
+
+Try:
+
+   explain-code --help
+
+=head1 DESCRIPTION
+
+This is pre-alpha version (whatever that means) of the code
+explain tool. It should be able to understand various perl
+constructs such as.
+
+
+    $x ||=  $y;
+
+    @data = map { ... } sort { ... } grep { ... } @data;
+
+give a short explanation and reasonable pointers to the documentation.
+
+See the t/cases.txt file more cases that are already handled.
+Add further cases to t/todo.txt, preferably with some explanation.
+
+
+=head1 AUTHOR
+
+Gabor Szabo L<http://szabgab.com/>
+
+=head1 COPYRIGHT and LICENSE
+
+This software is copyright (c) 2011 by Gabor Szabo.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
 
 1;
 
