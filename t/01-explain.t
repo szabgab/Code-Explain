@@ -22,6 +22,7 @@ my %cases = (
 	q('' .)         => 'Forcing string context',
 	q(0 +)          => 'Forcing numeric context',
 	'$z ||= $y'     => 'Assigning default value to $z. It has the disadvantage of not allowing $z=0. Startin from 5.10 you can use //= instead of ||=',
+	'$self->editor' => q(Calling method 'editor' on an object in the variable called $self),
 );
 
 my %todo = (

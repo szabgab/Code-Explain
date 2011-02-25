@@ -46,6 +46,7 @@ sub explain {
 
 	my $NUMBER = qr{\d+(?:\.\d+)?};
 
+	# 2 + 3
 	if ($code =~ m{^$NUMBER \s* [/*+-]  \s* $NUMBER$}x) {
 		return 'Numerical operation';
 	}
@@ -61,7 +62,6 @@ sub explain {
 		return 'This is the same as the number ' . eval($code) . ' just in a more readable format';
 	}
 
-	# some special cases
 	# $_[2], $_[$var], $name[42]
 	if ($code =~ /\$(\w+)\[(.*?)\]/) {
 		if ($1 eq '_') {
@@ -88,7 +88,11 @@ sub explain {
 		return "Assigning default value to \$$lhs. It has the disadvantage of not allowing \$$lhs=0. Startin from 5.10 you can use //= instead of ||=";
 	}
 
-
+	# $self->editor
+	if ($code =~ m{^\$(\w+)   ->   (\w+)}x) {
+		my ($obj_name, $method) = ($1, $2);
+		return "Calling method '$method' on an object in the variable called \$$obj_name",
+	}
 	#require PPI::Document;
 	#my $Document = PPI::Document->new($code);
 
