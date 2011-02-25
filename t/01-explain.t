@@ -11,6 +11,8 @@ my %cases = (
 	'$_[1]'      => 'This is element 1 of the default array @_',
 	'$name[$id]' => 'This is element $id of the array @name',
 	'$$y'        => '$y is a reference to a scalar value. This expression dereferences it. See perlref',
+	'1'          => 'A number',
+	'12_345'     => 'This is the same as the number 12345 just in a more readable format',
 );
 
 my %todo = (
@@ -20,7 +22,6 @@ my %todo = (
 	q("print 'hey';") => '',
 	q('string')     => '',
 	'1+1'           => '',
-#	'1'             => '',
 	'split()'       => '',
 );
 
@@ -30,7 +31,7 @@ require Code::Explain;
 
 my $ce = Code::Explain->new;
 foreach my $str (sort keys %cases) {
-	is $ce->explain($str), $cases{$str}, $str;
+	is $ce->explain($str), $cases{$str}, "<$str>";
 }
 
 foreach my $str (sort keys %todo) {

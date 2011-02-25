@@ -26,6 +26,14 @@ sub explain {
 			return $exact{$sub};
 		}
 	}
+	
+	if ($code =~ /^\d+$/) {
+		return 'A number';
+	}
+
+	if ($code =~ /^\d+(_\d\d\d)+$/) {
+		return 'This is the same as the number ' . eval($code) . ' just in a more readable format';
+	}
 
 	# some special cases
 	# $_[2], $_[$var], $name[42]
