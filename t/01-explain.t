@@ -7,15 +7,21 @@ my %cases = (
 	'@_'         => 'Default array',
 	'given'      => 'keyword in perl 5.10',
 	'say'        => 'keyword in perl 5.10',
+	'say()'      => 'keyword in perl 5.10',
 	'$_[1]'      => 'This is element 1 of the default array @_',
 	'$name[$id]' => 'This is element $id of the array @name',
+	'$$y'        => '$y is a reference to a scalar value. This expression dereferences it. See perlref',
 );
 
 my %todo = (
 	'$x ||= $y'     => 'Assigning default value',
 	'$phone{$name}' => 'The element $name of the hash %phone',
-	'$$x'           => 'Dereferencing the value in $x',
 	'$x = /regex/'  => '$x = $_ =~ /regex/',
+	q("print 'hey';") => '',
+	q('string')     => '',
+	'1+1'           => '',
+#	'1'             => '',
+	'split()'       => '',
 );
 
 plan tests => scalar(keys %cases) + scalar(keys %todo) + 1;

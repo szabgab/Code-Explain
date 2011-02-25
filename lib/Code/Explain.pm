@@ -19,6 +19,14 @@ sub explain {
 		return $exact{$code};
 	}
 
+	# say()
+	if ($code =~ /^(\w+)\(\)$/) {
+		my $sub = $1;
+		if ($exact{$sub}) {
+			return $exact{$sub};
+		}
+	}
+
 	# some special cases
 	# $_[2], $_[$var], $name[42]
 	if ($code =~ /\$(\w+)\[(.*?)\]/) {
@@ -27,6 +35,9 @@ sub explain {
 		} else {
 			return "This is element $2 of the array \@$1";
 		}
+	}
+	if ($code =~/^\$\$(\w+)$/) {
+		return "\$$1 is a reference to a scalar value. This expression dereferences it. See perlref";
 	}
 
 	#require PPI::Document;
@@ -43,7 +54,6 @@ sub ppi_dump {
 	my $Dumper = PPI::Dumper->new( $Document );
 	return $Dumper->list;
 }
-
 
 
 
