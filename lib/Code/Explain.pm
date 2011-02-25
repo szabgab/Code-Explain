@@ -19,18 +19,27 @@ sub explain {
 		return $exact{$code};
 	}
 
-	# say()
+	# parentheses after the name of a subroutine
 	if ($code =~ /^(\w+)\(\)$/) {
 		my $sub = $1;
 		if ($exact{$sub}) {
 			return $exact{$sub};
 		}
 	}
-	
-	if ($code =~ /^\d+$/) {
+
+	my $NUMBER = qr{\d+(?:\.\d+)?};
+
+	if ($code =~ m{^$NUMBER \s* [/*+-]  \s* $NUMBER$}x) {
+		return 'Numerical operation';
+	}
+
+	# 2
+	# 2.34
+	if ($code =~ /^$NUMBER$/) {
 		return 'A number';
 	}
 
+	# 23_145
 	if ($code =~ /^\d+(_\d\d\d)+$/) {
 		return 'This is the same as the number ' . eval($code) . ' just in a more readable format';
 	}

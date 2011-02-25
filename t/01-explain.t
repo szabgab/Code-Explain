@@ -12,7 +12,11 @@ my %cases = (
 	'$name[$id]' => 'This is element $id of the array @name',
 	'$$y'        => '$y is a reference to a scalar value. This expression dereferences it. See perlref',
 	'1'          => 'A number',
+	'23.14'      => 'A number',
 	'12_345'     => 'This is the same as the number 12345 just in a more readable format',
+	'1+1'        => 'Numerical operation',
+	'1   +1'     => 'Numerical operation',
+	'1   - 1'    => 'Numerical operation',
 );
 
 my %todo = (
@@ -21,7 +25,6 @@ my %todo = (
 	'$x = /regex/'  => '$x = $_ =~ /regex/',
 	q("print 'hey';") => '',
 	q('string')     => '',
-	'1+1'           => '',
 	'split()'       => '',
 );
 
