@@ -1,8 +1,14 @@
 package Code::Explain;
 use 5.008;
-use Moose;
+use strict;
+use warnings;
 
 our $VERSION = '0.01';
+
+sub new {
+	my ($class) = @_;
+	return bless {}, $class;
+}
 
 sub explain {
 	my ($self, $code) = @_;
