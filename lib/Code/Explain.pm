@@ -64,12 +64,20 @@ sub explain {
 			return "This is element $2 of the array \@$1";
 		}
 	}
+
+	# $phone{$name}
+	if ($code =~ m{^\$(\w+)    \{  \$(\w+) \}  }x) {
+		my ($hash_name, $key_name) = ($1, $2);
+		return "The element \$$key_name of the hash \%$hash_name";
+	}
+
+	# $$x
 	if ($code =~/^\$\$(\w+)$/) {
 		return "\$$1 is a reference to a scalar value. This expression dereferences it. See perlref";
 	}
 
 	# $x ||= $y
-	if ($code  =~ m{^\$(\w+) \s*  \|\|= \s* \$\w+$}x) {
+	if ($code  =~ m{^\$(\w+) \s*  \|\|= \s* \$(\w+)$}x) {
 		my $lhs = $1;
 		return "Assigning default value to \$$lhs. It has the disadvantage of not allowing \$$lhs=0. Startin from 5.10 you can use //= instead of ||=";
 	}
