@@ -25,7 +25,7 @@ my %cases = (
 );
 
 my %todo = (
-	'$x = /regex/'  => '$x = $_ =~ /regex/',
+	'$x = /regex/'  => 'This is the same as if you wrote:       $x = $_ =~ /regex/',
 	q("print 'hey';") => '',
 	q('string')     => '',
 	'split()'       => '',
