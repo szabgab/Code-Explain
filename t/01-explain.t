@@ -30,6 +30,7 @@ my %todo = (
 	q("print 'hey';") => '',
 	q('string')     => '',
 	'split()'       => '',
+	q(/(\$\w+(?:\-\>)?)\{([\'\"]?)([\$\&]?\w*)$/) => '', # and in general some complex regexes
 );
 
 plan tests => scalar(keys %cases) + scalar(keys %todo) + 1;
