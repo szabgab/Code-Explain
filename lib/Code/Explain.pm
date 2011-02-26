@@ -108,6 +108,22 @@ sub ppi_dump {
 	return $Dumper->list;
 }
 
+sub ppi_explain {
+	my ($self, $code) = @_;
+	require PPI::Document;
+	my $document = PPI::Document->new(\$code);
+
+#	$document->index_locations;
+	my @result;
+	foreach my $token ( $document->tokens ) {
+		push @result, {
+			code => $token->content,
+			text => $self->explain($token->content),
+		};
+	}
+	return @result;
+}
+
 =head1 NAME
 
 Code::Explain - Try to explain what $ @ % & * and the rest mean

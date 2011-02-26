@@ -10,6 +10,7 @@ my %opt;
 GetOptions(\%opt,
 	'help',
 	'ppidump',
+	'ppiexplain',
 ) or usage();
 usage() if $opt{help};
 usage() if @ARGV != 1;
@@ -18,6 +19,8 @@ my $str = shift;
 my $ce = Code::Explain->new;
 if ($opt{ppidump}) {
 	print map {"$_\n"} $ce->ppi_dump($str);
+} elsif ($opt{ppiexplain}) {
+	print map {"$_->{code}   $_->{text}\n"} $ce->ppi_explain($str);
 } else {
 	print $ce->explain($str), "\n";
 }
@@ -29,7 +32,8 @@ This is version $Code::Explain::VERSION of Code::Explain
 
 Usage: $0  'code snippet'
 
-         --ppidump   Run PPI on the code and print the dump
+         --ppidump     Run PPI on the code and print the dump
+         --ppiexplain  Run PPI on the code and try to explain the individual tokens
 
          --help      gives this help
 
