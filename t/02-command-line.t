@@ -3,6 +3,8 @@ use warnings;
 use Test::More;
 use Test::Deep;
 
+use t::lib::Explain;
+
 plan tests => 2;
 
 my $code = '$_ = $_[2]';
@@ -22,21 +24,8 @@ my $cmd = qq($^X -I lib script/explain-code $deli$code$deli);
 {
 	my @out = qx{$cmd --ppidump};
 	chomp @out;
-
-	my @expected = (
-		re(q((?x)PPI::Document)),
-		re(q((?x)  PPI::Statement)),
-		re(q((?x)    PPI::Token::Magic          \s*   '\$_'        )),
-		re(q((?x)    PPI::Token::Whitespace     \s*   '\ '         )),
-		re(q((?x)    PPI::Token::Operator       \s*   '='          )),
-		re(q((?x)    PPI::Token::Whitespace     \s*   '\ '         )),
-		re(q((?x)    PPI::Token::Magic          \s*   '\$_'        )),
-		re(q((?x)    PPI::Structure::Subscript  \s*   \[\ ...\ \]  )),
-		re(q((?x)    PPI::Statement::Expression                    )),
-		re(q((?x)        PPI::Token::Number     \s*   '2'          )),
-	);
-
+	
 	#diag explain @out;
-        cmp_deeply \@out, \@expected, "--ppidump $cmd";
+        cmp_deeply \@out, $t::lib::Explain::cases[0]{expected_ppidump}, "--ppidump $cmd";
 }
 
