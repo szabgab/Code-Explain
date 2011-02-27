@@ -5,7 +5,7 @@ use Test::Deep;
 
 use t::lib::Explain;
 
-plan tests => 2;
+plan tests => 3;
 
 my $code = '$_ = $_[2]';
 
@@ -29,3 +29,10 @@ my $cmd = qq($^X -I lib script/explain-code $deli$code$deli);
         cmp_deeply \@out, $t::lib::Explain::cases[0]{expected_ppidump}, "--ppidump $cmd";
 }
 
+{
+	my @out = qx{$cmd --ppiexplain};
+	chomp @out;
+
+	#diag explain @out;
+        cmp_deeply \@out, $t::lib::Explain::cases[0]{expected_ppiexplain}, "--ppiexplain $cmd";
+}

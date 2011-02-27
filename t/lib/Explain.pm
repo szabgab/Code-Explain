@@ -18,6 +18,16 @@ our @cases = (
 			re(q((?x)    PPI::Statement::Expression                    )),
 			re(q((?x)        PPI::Token::Number     \s*   '2'          )),
 		],
+		expected_ppiexplain => [
+			re(q((?x)\$_   \s* Default\ variable)),
+			re(q((?x)        Not\ found)),
+			re(q((?x)= \s*   Not\ found)),
+			re(q((?x)        Not\ found)),
+			re(q((?x)\$_   \s* Default\ variable)),
+			re(q((?x)\[ \s*       Not\ found)),
+			re(q((?x)2  \s* A\ number)),
+			re(q((?x)\] \s*       Not\ found)),
+		],
 	},
 );
 

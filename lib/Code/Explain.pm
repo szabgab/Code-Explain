@@ -20,7 +20,7 @@ sub new {
 sub code { return $_[0]->{code} };
 
 sub explain {
-	my ($self) = @_;
+	my ($self, $code) = @_;
 
 	# TODO we will maintain a database of exact matches
 	my %exact = (
@@ -31,7 +31,7 @@ sub explain {
 		'!!'    => 'Creating boolean context by negating the value on the right hand side twice',
 	);
 
-	my $code = $self->code;
+	$code = $self->code if not defined $code;
 	if ($exact{$code}) {
 		return $exact{$code};
 	}
