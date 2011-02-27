@@ -1,11 +1,14 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Deep;
 
 my %cases = read_cases('t/cases.txt', 20);
 my %todo  = read_cases('t/todo.txt',  50);
 
-plan tests => scalar(keys %cases) + scalar(keys %todo) + 2 + 1;
+plan tests => scalar(keys %cases) + scalar(keys %todo) + 2 + 2 +1;
+
+use t::lib::Explain;
 
 require Code::Explain;
 
@@ -45,6 +48,20 @@ foreach my $str (sort keys %todo) {
 	#diag explain @explain;
 	#diag $dump[2] =~ s/\t/TAB/g;
 }
+
+{
+	my $code = $t::lib::Explain::cases[0]{code};
+	my $ce = Code::Explain->new( code => $code );
+	my @dump = $ce->ppi_dump;
+	#diag explain @dump;
+        cmp_deeply \@dump, $t::lib::Explain::cases[0]{expected_ppidump}, "--ppidump $code";
+
+	my @explain = map { "$_->{code}   $_->{text}" } $ce->ppi_explain;
+        cmp_deeply \@explain, $t::lib::Explain::cases[0]{expected_ppiexplain}, "--ppiexplain $code";
+	#diag explain @explain;
+	#diag $dump[2] =~ s/\t/TAB/g;
+}
+
 
 {
 	eval { 	my $ce = Code::Explain->new() };
