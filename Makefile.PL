@@ -25,6 +25,7 @@ requires 'perl'                    => '5.008008';
 requires 'PPI'                     => '1.213';
 
 test_requires 'Test::More'         => '0.88';
+test_requires 'Test::Deep'         => '0.01';
 test_requires 'Test::NoWarnings'   => '0.084';
 
 no_index 'directory' => qw{ t xt eg share inc privinc };
