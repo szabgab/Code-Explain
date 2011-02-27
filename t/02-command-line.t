@@ -16,7 +16,7 @@ my $deli = $^O =~ /MSWin/i ? '"' : "'";
 my $cmd = qq($^X -I lib script/explain-code $deli$code$deli);
 
 {
-	my $out = qx{$cmd};
+	my $out = qx{$cmd --explain};
 	chomp $out;
 	is ($out, 'This is element 2 of the default array @_', $code);
 }
