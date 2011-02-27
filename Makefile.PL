@@ -22,6 +22,7 @@ all_from 'lib/Code/Explain.pm';
 
 requires 'perl'                    => '5.008008';
 
+requires 'Pod::Usage';
 requires 'PPI'                     => '1.213';
 
 test_requires 'Test::More'         => '0.88';

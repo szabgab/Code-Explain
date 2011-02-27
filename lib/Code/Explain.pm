@@ -168,9 +168,18 @@ The module comes with a command line tool called
 You give a perl expression to it and it will give an explanation
 what that might be.
 
-Try:
 
-   explain-code --help
+=head1 COMMAND LINE OPTIONS
+
+One of the following:
+
+   --explain     Try to exaplain our way
+   --ppidump     Run PPI on the code and print the dump
+   --ppiexplain  Run PPI on the code and try to explain the individual tokens
+   --all         All of the above
+
+   --help        Prints the list of command line options
+
 
 =head1 DESCRIPTION
 
@@ -187,7 +196,6 @@ give a short explanation and reasonable pointers to the documentation.
 
 See the t/cases.txt file more cases that are already handled.
 Add further cases to t/todo.txt, preferably with some explanation.
-
 
 =head1 AUTHOR
 

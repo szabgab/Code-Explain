@@ -4,6 +4,7 @@ use warnings;
 
 use Code::Explain;
 use Getopt::Long qw(GetOptions);
+use Pod::Usage qw(pod2usage);
 
 usage() if not @ARGV;
 my %opt;
@@ -44,16 +45,8 @@ sub usage {
 This is version $Code::Explain::VERSION of Code::Explain
 
 Usage: $0  'code snippet'
-
-                      And one of the options:
-         --explain     Try to exaplain our way
-         --ppidump     Run PPI on the code and print the dump
-         --ppiexplain  Run PPI on the code and try to explain the individual tokens
-         --all         All of the above
-
-         --help      gives this help
-
 END_USAGE
-	exit;
+pod2usage( '-input' => $INC{'Code/Explain.pm'}, '-sections' => 'COMMAND LINE OPTIONS', '-verbose' => 99 );
+die "xx";
 }
 
