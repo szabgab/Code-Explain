@@ -8,3 +8,10 @@ sub one : Two(Three) { }
 @{foo}{@keys} = @values
 $foo % 2
 $foo || $bar
+$foo->{bar}
+@hash{@keys}
+$a // $b
+$x //= 5;
+$x ||= 5;
+$a || $b
+state $i = 0;
