@@ -7,7 +7,7 @@ use t::lib::Explain;
 
 plan tests => 3;
 
-my $code = '$_ = $_[2]';
+my $code = $t::lib::Explain::cases[0]{code};
 
 diag $^O;
 

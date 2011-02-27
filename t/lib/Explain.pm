@@ -6,6 +6,7 @@ use Test::Deep;
 
 our @cases = (
 	{
+		code => '$_ = $_[2]',
 		expected_ppidump => [
 			re(q((?x)PPI::Document)),
 			re(q((?x)  PPI::Statement)),
