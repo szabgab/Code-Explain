@@ -103,19 +103,16 @@ sub explain {
 		my ($obj_name, $method) = ($1, $2);
 		return "Calling method '$method' on an object in the variable called \$$obj_name",
 	}
-	#require PPI::Document;
-	#my $Document = PPI::Document->new($code);
 
 	return "Not found";
 }
 
 sub ppi_dump {
 	my ($self) = @_;
-	
-	my $code = $self->code;
-	require PPI::Document;
+
 	require PPI::Dumper;
-	my $Document = PPI::Document->new(\$code);
+	
+	my $Document = $self->ppi_document;
 	my $Dumper = PPI::Dumper->new( $Document );
 	return $Dumper->list;
 }
@@ -123,9 +120,7 @@ sub ppi_dump {
 sub ppi_explain {
 	my ($self) = @_;
 
-	my $code = $self->code;
-	require PPI::Document;
-	my $document = PPI::Document->new(\$code);
+	my $document = $self->ppi_document;
 
 #	$document->index_locations;
 	my @result;
@@ -137,6 +132,19 @@ sub ppi_explain {
 	}
 	return @result;
 }
+
+sub ppi_document {
+	my ($self) = @_;
+	
+	if (not $self->{ppi_document}) {
+		require PPI::Document;
+		my $code = $self->code;
+		$self->{ppi_document} = PPI::Document->new(\$code);
+	}
+
+	return $self->{ppi_document};
+}
+
 
 =head1 NAME
 
