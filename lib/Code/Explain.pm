@@ -3,15 +3,24 @@ use 5.008;
 use strict;
 use warnings;
 
+use Carp qw(croak);
+
 our $VERSION = '0.01';
 
 sub new {
-	my ($class) = @_;
-	return bless {}, $class;
+	my ($class, %args) = @_;
+	my $self = bless {}, $class;
+
+	$self->{code} = $args{code}
+		or croak('Method ->new needs a   "code" => $some code pair');
+
+	return $self
 }
 
+sub code { return $_[0]->{code} };
+
 sub explain {
-	my ($self, $code) = @_;
+	my ($self) = @_;
 
 	# TODO we will maintain a database of exact matches
 	my %exact = (
@@ -22,6 +31,7 @@ sub explain {
 		'!!'    => 'Creating boolean context by negating the value on the right hand side twice',
 	);
 
+	my $code = $self->code;
 	if ($exact{$code}) {
 		return $exact{$code};
 	}
@@ -100,7 +110,9 @@ sub explain {
 }
 
 sub ppi_dump {
-	my ($self, $code) = @_;
+	my ($self) = @_;
+	
+	my $code = $self->code;
 	require PPI::Document;
 	require PPI::Dumper;
 	my $Document = PPI::Document->new(\$code);
@@ -109,7 +121,9 @@ sub ppi_dump {
 }
 
 sub ppi_explain {
-	my ($self, $code) = @_;
+	my ($self) = @_;
+
+	my $code = $self->code;
 	require PPI::Document;
 	my $document = PPI::Document->new(\$code);
 

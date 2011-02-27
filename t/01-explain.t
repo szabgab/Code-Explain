@@ -9,20 +9,23 @@ plan tests => scalar(keys %cases) + scalar(keys %todo) + 1;
 
 require Code::Explain;
 
-my $ce = Code::Explain->new;
 foreach my $str (sort keys %cases) {
-	is $ce->explain($str), $cases{$str}, "<$str>";
+	my $ce = Code::Explain->new( code => $str );
+	is $ce->explain, $cases{$str}, "<$str>";
 }
 
 foreach my $str (sort keys %todo) {
 	TODO: {
 		local $TODO = "$str is not yet handled";
-		is $ce->explain($str), $todo{$str}, $str;
+		my $ce = Code::Explain->new( code => $str );
+		is $ce->explain, $todo{$str}, $str;
 	}
 }
 
 {
-	my @dump = $ce->ppi_dump('$_');
+	my $code = '$_';
+	my $ce = Code::Explain->new( code => $code );
+	my @dump = $ce->ppi_dump;
 	#diag explain @dump;
 	my @expected = (
 		q(PPI::Document),
