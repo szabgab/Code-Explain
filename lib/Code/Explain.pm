@@ -111,10 +111,8 @@ sub ppi_dump {
 	my ($self) = @_;
 
 	require PPI::Dumper;
-	
-	my $Document = $self->ppi_document;
-	my $Dumper = PPI::Dumper->new( $Document );
-	return $Dumper->list;
+	my $dumper = PPI::Dumper->new( $self->ppi_document );
+	return $dumper->list;
 }
 
 sub ppi_explain {
@@ -122,7 +120,6 @@ sub ppi_explain {
 
 	my $document = $self->ppi_document;
 
-#	$document->index_locations;
 	my @result;
 	foreach my $token ( $document->tokens ) {
 		push @result, {
@@ -140,6 +137,7 @@ sub ppi_document {
 		require PPI::Document;
 		my $code = $self->code;
 		$self->{ppi_document} = PPI::Document->new(\$code);
+#		$self->{ppi_document}->index_locations;
 	}
 
 	return $self->{ppi_document};
