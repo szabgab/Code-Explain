@@ -16,13 +16,13 @@ usage() if $opt{help};
 usage() if @ARGV != 1;
 
 my $str = shift;
-my $ce = Code::Explain->new;
+my $ce = Code::Explain->new( code => $str );
 if ($opt{ppidump}) {
-	print map {"$_\n"} $ce->ppi_dump($str);
+	print map {"$_\n"} $ce->ppi_dump;
 } elsif ($opt{ppiexplain}) {
-	print map {"$_->{code}   $_->{text}\n"} $ce->ppi_explain($str);
+	print map {"$_->{code}   $_->{text}\n"} $ce->ppi_explain;
 } else {
-	print $ce->explain($str), "\n";
+	print $ce->explain, "\n";
 }
 exit;
 
