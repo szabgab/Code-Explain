@@ -12,6 +12,7 @@ GetOptions(\%opt,
 	'explain',
 	'ppidump',
 	'ppiexplain',
+	'all',
 ) or usage();
 usage() if $opt{help};
 usage() if @ARGV != 1;
@@ -24,6 +25,15 @@ if ($opt{ppidump}) {
 	print map {"$_->{code}   $_->{text}\n"} $ce->ppi_explain;
 } elsif ($opt{explain}) {
 	print $ce->explain, "\n";
+} elsif ($opt{all}) {
+	print "Explain\n";
+	print $ce->explain, "\n";
+	print "\n";
+	print "PPI Dump\n";
+	print map {"$_\n"} $ce->ppi_dump;
+	print "\n";
+	print "PPI Explain\n";
+	print map {"$_->{code}   $_->{text}\n"} $ce->ppi_explain;
 } else {
 	usage();
 }
@@ -39,6 +49,7 @@ Usage: $0  'code snippet'
          --explain     Try to exaplain our way
          --ppidump     Run PPI on the code and print the dump
          --ppiexplain  Run PPI on the code and try to explain the individual tokens
+         --all         All of the above
 
          --help      gives this help
 
