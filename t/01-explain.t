@@ -5,7 +5,7 @@ use Test::More;
 my %cases = read_cases('t/cases.txt', 20);
 my %todo  = read_cases('t/todo.txt',  50);
 
-plan tests => scalar(keys %cases) + scalar(keys %todo) + 2;
+plan tests => scalar(keys %cases) + scalar(keys %todo) + 2 + 1;
 
 require Code::Explain;
 
@@ -44,6 +44,11 @@ foreach my $str (sort keys %todo) {
 	is_deeply \@explain, \@expected_explain, 'explain $_';
 	#diag explain @explain;
 	#diag $dump[2] =~ s/\t/TAB/g;
+}
+
+{
+	eval { 	my $ce = Code::Explain->new() };
+	like $@, qr/Method ->new needs a "code" => \$some_code pair/, 'Code::Explain->new requires code';
 }
 
 sub read_cases {

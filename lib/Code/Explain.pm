@@ -12,7 +12,7 @@ sub new {
 	my $self = bless {}, $class;
 
 	$self->{code} = $args{code}
-		or croak('Method ->new needs a   "code" => $some code pair');
+		or croak('Method ->new needs a "code" => $some_code pair');
 
 	return $self
 }
