@@ -33,4 +33,8 @@ no_index 'directory' => qw{ t xt eg share inc privinc };
 
 install_script 'script/explain-code';
 
+homepage 'http://code.szabgab.com/';
+#bugtracker '';
+repository 'http://github.com/szabgab/Code-Explain';
+
 WriteAll;
