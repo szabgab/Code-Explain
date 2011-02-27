@@ -5,7 +5,7 @@ use Test::More;
 my %cases = read_cases('t/cases.txt', 20);
 my %todo  = read_cases('t/todo.txt',  50);
 
-plan tests => scalar(keys %cases) + scalar(keys %todo) + 1;
+plan tests => scalar(keys %cases) + scalar(keys %todo) + 2;
 
 require Code::Explain;
 
@@ -33,6 +33,16 @@ foreach my $str (sort keys %todo) {
 		qq(    PPI::Token::Magic  \t'\$_'),   # why is that tab there?
 	);
 	is_deeply \@dump, \@expected, 'dump $_';
+
+	my @expected_explain = (
+		{
+			code => $code,
+			text => 'Default variable',
+		},
+	);
+	my @explain = $ce->ppi_explain;
+	is_deeply \@explain, \@expected_explain, 'explain $_';
+	#diag explain @explain;
 	#diag $dump[2] =~ s/\t/TAB/g;
 }
 
