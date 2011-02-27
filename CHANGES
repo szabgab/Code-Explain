@@ -6,6 +6,7 @@
     Removed the unused Moose
 
     API Change: Eliminated the reuse of the object for multiple strings
+    Command line tool now requires --explain
 
 0.01 2011.02.24
 
