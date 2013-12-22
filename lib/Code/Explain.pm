@@ -37,6 +37,7 @@ sub explain {
 	}
 
 	# parentheses after the name of a subroutine
+	# say()
 	if ($code =~ /^(\w+)\(\)$/) {
 		my $sub = $1;
 		if ($exact{$sub}) {

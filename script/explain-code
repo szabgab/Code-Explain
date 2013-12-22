@@ -20,24 +20,30 @@ usage() if @ARGV != 1;
 
 my $str = shift;
 my $ce = Code::Explain->new( code => $str );
-if ($opt{ppidump}) {
-	print map {"$_\n"} $ce->ppi_dump;
-} elsif ($opt{ppiexplain}) {
-	print map {"$_->{code}   $_->{text}\n"} $ce->ppi_explain;
-} elsif ($opt{explain}) {
-	print $ce->explain, "\n";
-} elsif ($opt{all}) {
-	print "Explain\n";
-	print $ce->explain, "\n";
-	print "\n";
-	print "PPI Dump\n";
-	print map {"$_\n"} $ce->ppi_dump;
-	print "\n";
-	print "PPI Explain\n";
-	print map {"$_->{code}   $_->{text}\n"} $ce->ppi_explain;
-} else {
-	usage();
+if ($opt{all}) {
+	$opt{$_}=1 for qw(explain ppidump ppiexplain);
 }
+
+my $done;
+if ($opt{explain}) {
+	print "Explain:\n";
+	print $ce->explain, "\n";
+	print "\n";
+	$done = 1;
+}
+if ($opt{ppidump}) {
+	print "PPI Dump:\n";
+	print map {"$_\n"} $ce->ppi_dump;
+	print "\n";
+	$done = 1;
+}
+if ($opt{ppiexplain}) {
+	print "PPI Explain:\n";
+	print map {"$_->{code}   $_->{text}\n"} $ce->ppi_explain;
+	print "\n";
+	$done = 1;
+}
+usage() if not $done;
 exit;
 
 sub usage {
