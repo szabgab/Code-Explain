@@ -39,4 +39,5 @@
 # Avoid archives of this distribution
 \bCode-Explain-[\d\.\_]+
 .gitignore
+MYMETA.*
 
